@@ -1,6 +1,4 @@
-﻿int[] arr = { 15, 6, -4, 12, -11, 8, -1 }; //ручной массив
-bool msgerror;
-int index = 0;
+﻿bool msgerror;
 
 Console.Write("Введире размер массива : ");
 msgerror = int.TryParse(Console.ReadLine(), out int k);
@@ -21,29 +19,35 @@ int min = Math.Abs(array[0]);
 
 for (int i = 0; i != array.Length; i++)
 {
-	if (min > Math.Abs(array[i]))
-	{
-		min = Math.Abs(array[i]);
-		index = i;
-	}
+	if (Math.Abs(min) > Math.Abs(array[i]))
+		min = array[i];
 }
 
 Console.WriteLine(); //декоративно
+int idx = Array.IndexOf(array, min);
+Console.WriteLine($"Исходное значение массива : {min}");
+Console.WriteLine($"Значение минимального значениия по модулю : {Math.Abs(min)}");
+Console.Write($"Позиция элемента массива : {idx}");
 
-Console.WriteLine($"Исходное значение массива : {array[index]}");
-Console.WriteLine($"Значение минимального значениия по модулю : {Math.Abs(array[index])}");
-Console.WriteLine($"Позиция элемента массива : {index}");
-
+while (idx != -1) 
+{
+	if (Array.IndexOf(array, min, idx + 1) != -1)
+	{
+		idx = Array.IndexOf(array, min, idx + 1);
+		Console.WriteLine($", {idx}");
+	}
+	else break;
+}
 Console.WriteLine(); //декоративно
 
-index = 0; //обнуляем индекс
+	idx = 0; //обнуляем индекс
 
 Console.Write("array = [");
 foreach (int i in array)
 {
-	if (index == array.Length - 1)
+	if (idx == array.Length - 1)
 		Console.WriteLine($"{i}]");
 	else
 		Console.Write($"{i}, ");
-	index++;
+	idx++;
 }
